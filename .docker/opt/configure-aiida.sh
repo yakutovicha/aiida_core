@@ -71,8 +71,8 @@ verdi profile show || echo "The default profile is not set."
 # Make sure that the daemon is not running, otherwise the migration will abort.
 verdi daemon stop
 
-# Migration will run for the default profile.
-verdi database migrate --force || echo "Database migration failed."
+# Migration will run for the default profile. Since along the migration files might be created - move to the home folder.
+cd /home/${SYSTEM_USER}/; verdi database migrate --force || echo "Database migration failed."
 
 # Daemon will start only if the database exists and is migrated to the latest version.
 verdi daemon start || echo "AiiDA daemon is not running."
